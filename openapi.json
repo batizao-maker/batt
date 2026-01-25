@@ -1,0 +1,3359 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "ACH API",
+    "version": "1.12.0",
+    "title": "ACH API",
+    "x-logo": {
+      "url": "https://ach-api-docs.cfsb.com/CFSB_LOGO.png"
+    }
+  },
+  "servers": [
+    {
+      "description": "Staging Environment",
+      "url": "https://ach-api-staging.cfsb.com/ach/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "webhooks",
+      "description": "Webhooks exposed by clients to update transaction status"
+    },
+    {
+      "name": "companyIds",
+      "description": "Originating accounts available for a service account"
+    },
+    {
+      "name": "transactions",
+      "description": "Business account owners on the receiving end of transactions"
+    },
+    {
+      "name": "transactionGroups",
+      "description": "Transaction grouping resources"
+    },
+    {
+      "name": "RDFI Transactions"
+    }
+  ],
+  "paths": {
+    "/webhooks/v1/rdfiTransactions": {
+      "post": {
+        "tags": [
+          "webhooks"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-api-token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-timestamp",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ISO 8601"
+            },
+            "example": "2023-01-01T00:00:00Z"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/rdfiTransactionWebhookPostRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error. The webhook client will retry several times expecting to get a 200 instead."
+          }
+        }
+      }
+    },
+    "/webhooks/v1/returns": {
+      "post": {
+        "tags": [
+          "webhooks"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-api-token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-timestamp",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ISO 8601"
+            },
+            "example": "2023-01-01T00:00:00Z"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/returnWebhookPostRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error. The webhook client will retry several times expecting to get a 200 instead."
+          }
+        }
+      }
+    },
+    "/webhooks/v1/rejects": {
+      "post": {
+        "tags": [
+          "webhooks"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-api-token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-timestamp",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ISO 8601"
+            },
+            "example": "2023-01-01T00:00:00Z"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/rejectWebhookPostRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error. The webhook client will retry several times expecting to get a 200 instead."
+          }
+        }
+      }
+    },
+    "/webhooks/v1/cir": {
+      "post": {
+        "tags": [
+          "webhooks"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-api-token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-timestamp",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ISO 8601"
+            },
+            "example": "2023-01-01T00:00:00Z"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cirTransactionWebhookPostRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error. The webhook client will retry several times expecting to get a 200 instead."
+          }
+        }
+      }
+    },
+    "/webhooks/v1/odfi": {
+      "post": {
+        "tags": [
+          "webhooks"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-api-token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-timestamp",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ISO 8601"
+            },
+            "example": "2023-01-01T00:00:00Z"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/odfiTransactionWebhookPostRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error. The webhook client will retry several times expecting to get a 200 instead."
+          }
+        }
+      }
+    },
+    "/webhooks/v1/noc": {
+      "post": {
+        "tags": [
+          "webhooks"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-api-token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-timestamp",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ISO 8601"
+            },
+            "example": "2023-01-01T00:00:00Z"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/nocTransactionWebhookPostRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Internal Server Error. The webhook client will retry several times expecting to get a 200 instead."
+          }
+        }
+      }
+    },
+    "/companyIds": {
+      "get": {
+        "tags": [
+          "companyIds"
+        ],
+        "summary": "Returns originating accounts for the current service account",
+        "description": "",
+        "operationId": "getcompanyIds",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-service-account",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "in": "query",
+            "name": "orderBy",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "id",
+                "bankName",
+                "bankCountry",
+                "currency",
+                "routingNumber"
+              ],
+              "default": "id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "ASC"
+            }
+          },
+          {
+            "in": "query",
+            "name": "bankName",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "bankCountry",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "currency",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "routingNumber",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyIdSearchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "com.cfsb.ach/publicRestApi.all"
+            ]
+          }
+        ]
+      }
+    },
+    "/transactions": {
+      "post": {
+        "tags": [
+          "transactions"
+        ],
+        "summary": "Create a transaction",
+        "description": "Returns a map of status codes to quantities",
+        "operationId": "postTransactions",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-service-account",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/TransactionPostRequest"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransactionResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "com.cfsb.ach/publicRestApi.all"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "transactions"
+        ],
+        "summary": "Get transactions for this service account",
+        "description": "Returns a map of status codes to quantities",
+        "operationId": "getTransactions",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-service-account",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "in": "query",
+            "name": "orderBy",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "id",
+                "transactionReference",
+                "achTraceNumber",
+                "standardEntryClass",
+                "routingNumber",
+                "offsetReference",
+                "destinationCurrency",
+                "destinationCountry",
+                "status",
+                "dueDate",
+                "transactionGroupId",
+                "companyId",
+                "receivingPartyName",
+                "lastModifiedDate"
+              ],
+              "default": "id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "ASC"
+            }
+          },
+          {
+            "in": "query",
+            "name": "transactionReference",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "standardEntryClass",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "PPD",
+                  "CCD",
+                  "WEB",
+                  "IAT"
+                ]
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "routingNumber",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offsetReference",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "achTraceNumber",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "destinationCurrency",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "destinationCountry",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "CREATED",
+                  "REJECTED",
+                  "RELEASED",
+                  "RETURNED",
+                  "CANCELLED",
+                  "NOTIFIED"
+                ]
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "dueDateStart",
+            "schema": {
+              "type": "string",
+              "format": "ISO 8601"
+            }
+          },
+          {
+            "in": "query",
+            "name": "dueDateEnd",
+            "schema": {
+              "type": "string",
+              "format": "ISO 8601"
+            }
+          },
+          {
+            "in": "query",
+            "name": "transactionGroupId",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "companyId",
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "in": "query",
+            "name": "receivingPartyName",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "lastModifiedDate",
+            "schema": {
+              "type": "string",
+              "format": "ISO 8601"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionSearchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "com.cfsb.ach/publicRestApi.all"
+            ]
+          }
+        ]
+      }
+    },
+    "/transactions/{transactionId}": {
+      "get": {
+        "tags": [
+          "transactions"
+        ],
+        "summary": "Get Transaction by ID",
+        "description": "Returns a transaction with the specified ID",
+        "operationId": "getTransactionById",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-service-account",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "transactionId",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use user1 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "com.cfsb.ach/publicRestApi.all"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "transactions"
+        ],
+        "summary": "Cancel a transaction before submission to CFSB",
+        "description": "Returns a map of status codes to quantities",
+        "operationId": "deleteTransactions",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-service-account",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "transactionId",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use user1 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "com.cfsb.ach/publicRestApi.all"
+            ]
+          }
+        ]
+      }
+    },
+    "/rdfiTransactions/{rdfiTransactionId}/return": {
+      "patch": {
+        "tags": [
+          "RDFI Transactions"
+        ],
+        "summary": "Return an RDFI transaction previously received by a companyID",
+        "operationId": "returnRDFITransaction",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-service-account",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "in": "path",
+            "name": "rdfiTransactionId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/returnRDFITransactionPatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rdfiTransactionReturnResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/404ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rdfiTransactions": {
+      "get": {
+        "tags": [
+          "RDFI Transactions"
+        ],
+        "summary": "Get RDFI Transactions based on the provided search criteria",
+        "description": "Get RDFI transactions based on the provided search criteria",
+        "operationId": "getRDFITransactions",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-service-account",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "in": "query",
+            "name": "orderBy",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "status",
+                "creationDate"
+              ],
+              "default": "id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ],
+              "default": "ASC"
+            }
+          },
+          {
+            "in": "query",
+            "name": "creationDate",
+            "schema": {
+              "type": "string",
+              "format": "ISO 8601",
+              "example": "2024-01-01"
+            }
+          },
+          {
+            "in": "query",
+            "name": "creationDateEnd",
+            "schema": {
+              "type": "string",
+              "format": "ISO 8601",
+              "example": "2024-01-07"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ACCEPTED",
+                "RETURN_INITIATED_BY_CLIENT",
+                "RETURNED_BY_CLIENT"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InboundTransactionSearchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "com.cfsb.ach/publicRestApi.all"
+            ]
+          }
+        ]
+      }
+    },
+    "/rdfiTransactions/{transactionId}": {
+      "get": {
+        "tags": [
+          "RDFI Transactions"
+        ],
+        "summary": "Get RDFI Transaction by ID",
+        "description": "Get a RDFI transaction with the specified ID",
+        "operationId": "getRDFITransactionById",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-service-account",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "transactionId",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use user1 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RDFITransactionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "com.cfsb.ach/publicRestApi.all"
+            ]
+          }
+        ]
+      }
+    },
+    "/transactionGroups": {
+      "post": {
+        "tags": [
+          "transactionGroups"
+        ],
+        "summary": "Create a transaction group for transaction grouping",
+        "description": "Returns a map of status codes to quantities",
+        "operationId": "posttransactionGroups",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-service-account",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/TransactionGroupPostRequest"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransactionGroupResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "com.cfsb.ach/publicRestApi.all"
+            ]
+          }
+        ]
+      }
+    },
+    "/transactionGroups/{transactionGroupId}": {
+      "get": {
+        "tags": [
+          "transactionGroups"
+        ],
+        "summary": "Get Transaction Group by ID",
+        "description": "Returns a map of status codes to quantities",
+        "operationId": "getTransactionGroupById",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-service-account",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "transactionGroupId",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use user1 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionGroupResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "com.cfsb.ach/publicRestApi.all"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "transactionGroups"
+        ],
+        "summary": "Marks a transaction group as deleted and all its transactions",
+        "description": "Marks a transaction group as deleted and all its transactions",
+        "operationId": "deleteTransactionGroupById",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-service-account",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "transactionGroupId",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use user1 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionGroupResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transactionGroups/{transactionGroupId}/release": {
+      "patch": {
+        "tags": [
+          "transactionGroups"
+        ],
+        "summary": "Release transaction Group",
+        "description": "Marks a transaction Group as ready to be processed",
+        "operationId": "transactionGroupRelease",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-cfsb-service-account",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-cfsb-interaction-id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuidv4"
+            }
+          },
+          {
+            "name": "transactionGroupId",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use user1 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionGroupResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "com.cfsb.ach/publicRestApi.all"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "OAuth2": {
+        "type": "oauth2",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "https://cfsb-ach-non-prod.auth.us-east-1.amazoncognito.com/oauth2/token",
+            "scopes": {
+              "com.cfsb.ach/publicRestApi.all": "Allows access to all external rest API"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "CompanyIdResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "430da256-8aa6-49e7-aa9e-0e42ce8d4bc2",
+            "format": "uuidv4"
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "eventType": {
+                  "type": "string",
+                  "enum": [
+                    "CREATED",
+                    "CANCELLED"
+                  ],
+                  "example": "CREATED"
+                },
+                "eventDateTime": {
+                  "type": "string",
+                  "format": "ISO 8601",
+                  "example": "2021-04-21T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "externalCompanyId": {
+            "type": "string",
+            "example": "OA00000008"
+          },
+          "serviceAccountId": {
+            "type": "string",
+            "example": "ed24b599-7be9-430d-8e2a-5bda4e2f8ac3"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "INACTIVE"
+            ]
+          },
+          "configuration": {
+            "type": "object",
+            "properties": {
+              "domesticAllowed": {
+                "type": "boolean",
+                "example": true
+              },
+              "internationalAllowed": {
+                "type": "boolean",
+                "example": true
+              },
+              "supplementalRequired": {
+                "type": "boolean",
+                "example": true
+              },
+              "allowsSameDayACH": {
+                "type": "boolean",
+                "example": true
+              },
+              "allowsThirdPartyOrigination": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          },
+          "originatingAccount": {
+            "type": "object",
+            "properties": {
+              "bankName": {
+                "type": "string",
+                "example": "Bank of America"
+              },
+              "bankCountry": {
+                "type": "string",
+                "example": "US",
+                "format": "ISO 3166"
+              },
+              "routingNumber": {
+                "type": "string",
+                "example": 2356790
+              },
+              "accountNumber": {
+                "type": "string",
+                "example": "9182736450"
+              },
+              "currency": {
+                "type": "string",
+                "example": "USD",
+                "format": "ISO 4217"
+              }
+            }
+          },
+          "goLiveDate": {
+            "type": "string",
+            "format": "ISO 8601",
+            "example": "2021-10-04"
+          },
+          "cancellationDate": {
+            "type": "string",
+            "format": "ISO 8601",
+            "example": "2021-10-04"
+          }
+        }
+      },
+      "CompanyIdSearchResponse": {
+        "type": "object",
+        "properties": {
+          "pageHeader": {
+            "$ref": "#/components/schemas/PageHeader"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompanyIdResponse"
+            }
+          }
+        }
+      },
+      "TransactionPostRequest": {
+        "type": "object",
+        "required": [
+          "companyId",
+          "standardEntryClass",
+          "description",
+          "transactionDate",
+          "dueDate",
+          "amount",
+          "routingNumber",
+          "accountNumber",
+          "accountType",
+          "transactionType",
+          "transactionReference",
+          "bankName",
+          "receivingParty"
+        ],
+        "properties": {
+          "companyId": {
+            "type": "string",
+            "example": "32fa3896-992c-4c61-af70-0ee2758f51a1",
+            "format": "UUIDv4"
+          },
+          "transactionGroupId": {
+            "type": "string",
+            "example": "023662ea-9898-491b-9ccb-9dd3b5a8d5c3",
+            "format": "UUIDv4"
+          },
+          "standardEntryClass": {
+            "type": "string",
+            "example": "PPD",
+            "enum": [
+              "CCD",
+              "PPD",
+              "WEB",
+              "IAT"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "example": "Rent",
+            "maxLength": 10,
+            "pattern": "^[A-Za-z0-9 ]*$"
+          },
+          "transactionDate": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "example": "2021-04-15"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "example": "2021-04-20"
+          },
+          "amount": {
+            "type": "integer",
+            "example": 100000,
+            "minimum": 1,
+            "maximum": 999999999
+          },
+          "routingNumber": {
+            "type": "string",
+            "example": "023567907",
+            "minLength": 9,
+            "maxLength": 9
+          },
+          "accountNumber": {
+            "type": "string",
+            "example": "9182736450",
+            "pattern": "^[A-Za-z0-9 ]{1,17}$",
+            "minLength": 1,
+            "maxLength": 17
+          },
+          "accountType": {
+            "type": "string",
+            "enum": [
+              "CHECKING",
+              "SAVINGS"
+            ],
+            "example": "CHECKING"
+          },
+          "accountId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9 ]*$",
+            "maxLength": 16,
+            "example": "1148563",
+            "description": "AccountID/AccountReferenceNumber on Clients system"
+          },
+          "transactionType": {
+            "type": "string",
+            "enum": [
+              "CREDIT",
+              "DEBIT",
+              "PRENOTE_CREDIT",
+              "PRENOTE_DEBIT"
+            ],
+            "example": "CREDIT"
+          },
+          "transactionReference": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9 ]+$",
+            "example": "REF000001",
+            "minLength": 1,
+            "maxLength": 16
+          },
+          "destinationCurrency": {
+            "type": "string",
+            "example": "USD",
+            "format": "ISO 4217",
+            "default": "USD"
+          },
+          "destinationCountry": {
+            "type": "string",
+            "example": "US",
+            "format": "ISO 3166",
+            "default": "US"
+          },
+          "paymentInformation": {
+            "type": "string",
+            "example": "Arbitrary Data",
+            "pattern": "^[a-zA-Z0-9 ]*$",
+            "maxLength": 80
+          },
+          "bankName": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9 ]{3,35}$",
+            "example": "Citi Bank",
+            "minLength": 3,
+            "maxLength": 35
+          },
+          "submitAsSameDayACH": {
+            "type": "boolean",
+            "example": true,
+            "default": false
+          },
+          "originatingParty": {
+            "$ref": "#/components/schemas/TransactionParty"
+          },
+          "orderParty": {
+            "$ref": "#/components/schemas/TransactionParty"
+          },
+          "receivingParty": {
+            "$ref": "#/components/schemas/ReceivingParty"
+          },
+          "additionalParties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionParty"
+            },
+            "description": "Up to 3 tranaction parties"
+          },
+          "internationalTransactionData": {
+            "type": "object",
+            "required": [
+              "foreignExchangeIndicator",
+              "transactionTypeCode",
+              "foreignPaymentAmount"
+            ],
+            "properties": {
+              "foreignExchangeIndicator": {
+                "type": "string",
+                "enum": [
+                  "FF",
+                  "VF",
+                  "FV"
+                ],
+                "example": "FF"
+              },
+              "exchangeRate": {
+                "type": "number",
+                "example": 39,
+                "minimum": 1,
+                "maximum": 999999999
+              },
+              "foreignExchangeReferenceNumber": {
+                "type": "string",
+                "example": "456321",
+                "pattern": "^[a-zA-z0-9 ]+$",
+                "maxLength": 15
+              },
+              "transactionTypeCode": {
+                "type": "string",
+                "enum": [
+                  "ANN",
+                  "BUS",
+                  "DEP",
+                  "LOA",
+                  "MIS",
+                  "MOR",
+                  "PEN",
+                  "REM",
+                  "RLS",
+                  "SAL",
+                  "TAX",
+                  "ARC",
+                  "BOC",
+                  "MTE",
+                  "POP",
+                  "POS",
+                  "RCK",
+                  "SHR",
+                  "TEL",
+                  "WEB"
+                ],
+                "example": "PEN"
+              },
+              "foreignPaymentAmount": {
+                "type": "integer",
+                "format": "int64",
+                "example": 19900,
+                "minimum": -100000000000000000,
+                "maximum": 1000000000000000000
+              },
+              "ofacScreeningIndicator": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  1
+                ],
+                "example": 0
+              },
+              "secondaryOfacScreeningIndicator": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  1
+                ],
+                "example": 0
+              }
+            }
+          }
+        }
+      },
+      "TransactionResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "9a257484-e2b8-4828-acf6-aede59c758c4",
+            "format": "uuidv4"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "CREATED",
+              "RELEASED",
+              "REJECTED",
+              "RETURNED",
+              "CANCELLED",
+              "NOTIFIED"
+            ]
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "eventType",
+                "eventDateTime"
+              ],
+              "properties": {
+                "eventType": {
+                  "type": "string",
+                  "enum": [
+                    "CREATED",
+                    "REJECTED",
+                    "CANCELLED",
+                    "RELEASED",
+                    "RETURNED",
+                    "NOTIFIED"
+                  ],
+                  "example": "CREATED"
+                },
+                "eventDateTime": {
+                  "type": "string",
+                  "format": "ISO 8601",
+                  "example": "2021-04-21T00:00:00Z"
+                },
+                "rejectionReason": {
+                  "type": "string"
+                },
+                "correctedData": {
+                  "type": "string",
+                  "example": 2356790
+                }
+              }
+            }
+          },
+          "companyId": {
+            "type": "string",
+            "example": "15f8a800-47b9-11ec-8464-81c43de6fbbb"
+          },
+          "standardEntryClass": {
+            "type": "string",
+            "example": "PPD"
+          },
+          "description": {
+            "type": "string",
+            "example": "Rent"
+          },
+          "transactionDate": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "example": "2021-04-15"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "example": "2021-04-20"
+          },
+          "amount": {
+            "type": "integer",
+            "example": 100000
+          },
+          "routingNumber": {
+            "type": "string",
+            "example": 2356790
+          },
+          "accountNumber": {
+            "type": "string",
+            "example": "9182736450"
+          },
+          "accountType": {
+            "type": "string",
+            "enum": [
+              "CHECKING",
+              "SAVINGS"
+            ],
+            "example": "CHECKING"
+          },
+          "accountId": {
+            "type": "string",
+            "example": "1148563",
+            "description": "AccountID/AccountReferenceNumber on Clients system"
+          },
+          "transactionType": {
+            "type": "string",
+            "enum": [
+              "CREDIT",
+              "DEBIT",
+              "PRENOTE_CREDIT",
+              "PRENOTE_DEBIT"
+            ],
+            "example": "CREDIT"
+          },
+          "transactionReference": {
+            "type": "string",
+            "example": "REF000001"
+          },
+          "destinationCurrency": {
+            "type": "string",
+            "example": "USD",
+            "format": "ISO 4217"
+          },
+          "paymentInformation": {
+            "type": "string",
+            "example": "Arbitrary Data",
+            "format": "80 char"
+          },
+          "bankName": {
+            "type": "string",
+            "example": "Citi Bank"
+          },
+          "transactionGroupId": {
+            "type": "string",
+            "example": "a3aa0461-f5d1-446e-8c8e-426d7fe7f51a"
+          },
+          "submitAsSameDayACH": {
+            "type": "boolean",
+            "example": true
+          },
+          "releasedAsSameDayACH": {
+            "type": "boolean",
+            "example": true
+          },
+          "achTraceNumber": {
+            "type": "string",
+            "example": "062000010000001"
+          },
+          "offsetReference": {
+            "type": "string",
+            "example": "2312210001",
+            "maxLength": 10
+          },
+          "achPaymentId": {
+            "type": "string",
+            "example": "3521423643-TOK68RXUS"
+          },
+          "destinationCountry": {
+            "type": "string",
+            "example": "CO",
+            "format": "ISO 3166"
+          },
+          "creationDateTime": {
+            "type": "string",
+            "format": "ISO 8601",
+            "example": "2021-04-21T00:00:00Z"
+          },
+          "lastModifiedDateTime": {
+            "type": "string",
+            "format": "ISO 8601",
+            "example": "2021-04-21T00:00:00Z"
+          },
+          "originatingParty": {
+            "$ref": "#/components/schemas/TransactionParty"
+          },
+          "orderParty": {
+            "$ref": "#/components/schemas/TransactionParty"
+          },
+          "receivingParty": {
+            "$ref": "#/components/schemas/ReceivingParty"
+          },
+          "additionalParties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionParty"
+            },
+            "description": "Up to 3 tranaction parties"
+          },
+          "internationalTransactionData": {
+            "type": "object",
+            "properties": {
+              "foreignExchangeIndicator": {
+                "type": "string",
+                "enum": [
+                  "FF",
+                  "VF",
+                  "FV"
+                ],
+                "example": "FF"
+              },
+              "exchangeRate": {
+                "type": "string",
+                "example": "0000000000012500"
+              },
+              "foreignExchangeReferenceNumber": {
+                "type": "string",
+                "example": "456321"
+              },
+              "transactionTypeCode": {
+                "type": "string",
+                "enum": [
+                  "ANN",
+                  "BUS",
+                  "DEP",
+                  "LOA",
+                  "MIS",
+                  "MOR",
+                  "PEN",
+                  "REM",
+                  "RLS",
+                  "SAL",
+                  "TAX",
+                  "ARC",
+                  "BOC",
+                  "MTE",
+                  "POP",
+                  "POS",
+                  "RCK",
+                  "SHR",
+                  "TEL",
+                  "WEB"
+                ],
+                "example": "PEN"
+              },
+              "foreignPaymentAmount": {
+                "type": "integer",
+                "example": "19900"
+              },
+              "ofacScreeningIndicator": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  1
+                ],
+                "example": 0
+              },
+              "secondaryOfacScreeningIndicator": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  1
+                ],
+                "example": 0
+              }
+            }
+          }
+        }
+      },
+      "RDFITransactionResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "edfdaa69-e3c9-476d-ae73-23a2719f4881"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACCEPTED",
+              "RETURN_INITIATED_BY_CLIENT",
+              "RETURNED_BY_CLIENT"
+            ]
+          },
+          "events": {
+            "type": "array",
+            "example": [
+              {
+                "eventType": "ACCEPTED",
+                "eventDateTime": "2021-04-21T00:00:00Z"
+              },
+              {
+                "eventType": "RETURN_INITIATED_BY_CLIENT",
+                "eventDateTime": "2021-04-30T00:00:00Z",
+                "returnReasonCode": "R01",
+                "returnInformation": "Insufficient Funds"
+              }
+            ],
+            "items": {
+              "type": "object",
+              "required": [
+                "eventType",
+                "eventDateTime"
+              ],
+              "properties": {
+                "eventType": {
+                  "type": "string",
+                  "enum": [
+                    "ACCEPTED",
+                    "RETURN_INITIATED_BY_CLIENT",
+                    "RETURNED_BY_CLIENT"
+                  ],
+                  "example": "RETURN_INITIATED_BY_CLIENT"
+                },
+                "eventDateTime": {
+                  "type": "string",
+                  "format": "ISO 8601",
+                  "example": "2021-04-21T00:00:00Z"
+                },
+                "returnReasonCode": {
+                  "$ref": "#/components/schemas/returnReasonCode"
+                },
+                "dateOfDeath": {
+                  "type": "string",
+                  "example": "1990-01-31",
+                  "format": "YYYY-MM-DD"
+                },
+                "returnInformation": {
+                  "type": "string",
+                  "example": "Insufficient funds",
+                  "minLength": 0,
+                  "maxLength": 44
+                }
+              }
+            }
+          },
+          "companyId": {
+            "type": "string",
+            "example": "3ffbe6a2-47c9-11ec-b6d7-7b3e4f73dfd0"
+          },
+          "standardEntryClass": {
+            "type": "string",
+            "example": "PPD"
+          },
+          "description": {
+            "type": "string",
+            "example": "Rent"
+          },
+          "transactionDate": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "example": "2021-04-15"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "example": "2021-04-20"
+          },
+          "amount": {
+            "type": "integer",
+            "example": 100000
+          },
+          "routingNumber": {
+            "type": "string",
+            "example": 2356790
+          },
+          "accountNumber": {
+            "type": "string",
+            "example": "9182736450"
+          },
+          "transactionType": {
+            "type": "string",
+            "enum": [
+              "CREDIT",
+              "DEBIT",
+              "PRENOTE_CREDIT",
+              "PRENOTE_DEBIT"
+            ],
+            "example": "DEBIT"
+          },
+          "transactionCode": {
+            "type": "number",
+            "example": 26,
+            "minimum": 2,
+            "maximum": 2
+          },
+          "destinationCurrency": {
+            "type": "string",
+            "example": "USD",
+            "format": "ISO 4217"
+          },
+          "destinationCountry": {
+            "type": "string",
+            "example": "CO",
+            "format": "ISO 3166"
+          },
+          "paymentInformation": {
+            "type": "string",
+            "example": "Arbitrary Data",
+            "format": "80 char"
+          },
+          "receivingBankName": {
+            "type": "string",
+            "example": "Citi Bank"
+          },
+          "inboundTraceNumber": {
+            "type": "string",
+            "example": "062000010000001"
+          },
+          "outboundTraceNumber": {
+            "type": "string",
+            "example": "062000010000002"
+          },
+          "receivingBankCountry": {
+            "type": "string",
+            "example": "US"
+          },
+          "originatingBankName": {
+            "type": "string",
+            "example": "Citi Bank"
+          },
+          "originatingCurrency": {
+            "type": "string",
+            "example": "USD",
+            "format": "ISO 4217"
+          },
+          "companyDiscretionaryData": {
+            "type": "string",
+            "example": "3380835604-Z4NCRSTJF"
+          },
+          "settlementDate": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "example": "2021-04-16"
+          },
+          "originatingParty": {
+            "$ref": "#/components/schemas/InboundTransactionParty"
+          },
+          "receivingParty": {
+            "$ref": "#/components/schemas/InboundReceivingParty"
+          },
+          "internationalTransactionData": {
+            "type": "object",
+            "properties": {
+              "foreingExchangeIndicator": {
+                "type": "string",
+                "enum": [
+                  "FF",
+                  "VF",
+                  "FV"
+                ],
+                "example": "FF"
+              },
+              "exchangeRate": {
+                "type": "string",
+                "example": "0000000000012500"
+              },
+              "foreingExchangeReferenceNumber": {
+                "type": "string",
+                "example": "456321"
+              },
+              "foreignExchangeReferenceIndicator": {
+                "type": "integer",
+                "example": 1
+              },
+              "foreignTraceNumber": {
+                "type": "string",
+                "example": "ABCD123000000000000008"
+              },
+              "foreignCorrespondentBankName": {
+                "type": "string",
+                "example": "XYZ Financials Inc."
+              },
+              "foreignCorrespondentBankIdentificationNumberQualifier": {
+                "type": "number",
+                "example": 1,
+                "minLength": 2,
+                "maxLength": 2
+              },
+              "foreignCorrespondentBankIdentificationNumber": {
+                "type": "string",
+                "example": "1046589595860"
+              },
+              "foreignCorrespondentBankCountry": {
+                "type": "string",
+                "example": "US",
+                "format": "ISO 3166"
+              },
+              "transactionTypeCode": {
+                "type": "string",
+                "enum": [
+                  "ANN",
+                  "BUS",
+                  "DEP",
+                  "LOA",
+                  "MIS",
+                  "MOR",
+                  "PEN",
+                  "REM",
+                  "RLS",
+                  "SAL",
+                  "TAX",
+                  "ARC",
+                  "BOC",
+                  "MTE",
+                  "POP",
+                  "POS",
+                  "RCK",
+                  "SHR",
+                  "TEL",
+                  "WEB"
+                ],
+                "example": "PEN"
+              },
+              "foreingPaymentAmount": {
+                "type": "integer",
+                "example": "19900"
+              },
+              "ofacScreeningIndicator": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  1
+                ],
+                "example": 0
+              },
+              "secondaryOfacScreeningIndicator": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  1
+                ],
+                "example": 0
+              }
+            }
+          }
+        }
+      },
+      "TransactionSearchResponse": {
+        "type": "object",
+        "properties": {
+          "pageHeader": {
+            "$ref": "#/components/schemas/PageHeader"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionResponse"
+            }
+          }
+        }
+      },
+      "InboundTransactionSearchResponse": {
+        "type": "object",
+        "properties": {
+          "pageHeader": {
+            "$ref": "#/components/schemas/PageHeader"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RDFITransactionResponse"
+            }
+          }
+        }
+      },
+      "TransactionGroupPostRequest": {
+        "type": "object",
+        "required": [
+          "clientReference"
+        ],
+        "properties": {
+          "clientReference": {
+            "type": "string",
+            "example": "REF000000001"
+          }
+        }
+      },
+      "TransactionGroupResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "beb49b39-8f90-4958-b877-ca3726f4f751",
+            "format": "uuidv4"
+          },
+          "clientReference": {
+            "type": "string",
+            "example": "REF000000001"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "CREATED",
+              "RELEASED",
+              "CANCELLED",
+              "REJECTED"
+            ],
+            "example": "CREATED"
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "eventType": {
+                  "type": "string",
+                  "enum": [
+                    "CREATED",
+                    "RELEASED",
+                    "CANCELLED",
+                    "REJECTED"
+                  ],
+                  "example": "CREATED"
+                },
+                "eventDateTime": {
+                  "type": "string",
+                  "format": "ISO 8601",
+                  "example": "2021-04-21T00:00:00Z"
+                }
+              }
+            }
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileResponse"
+            }
+          }
+        }
+      },
+      "TransactionGroupSearchResponse": {
+        "type": "object",
+        "properties": {
+          "pageHeader": {
+            "$ref": "#/components/schemas/PageHeader"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionGroupResponse"
+            }
+          }
+        }
+      },
+      "TransactionParty": {
+        "type": "object",
+        "required": [
+          "name",
+          "address",
+          "city",
+          "state",
+          "country",
+          "zipCode"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9 ]+$",
+            "example": "Dolly Parton",
+            "maxLength": 35
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "example": "1987-10-10"
+          },
+          "address": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9 ]+$",
+            "example": "321 Cool Street",
+            "maxLength": 35
+          },
+          "city": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9 ]+$",
+            "example": "Albany",
+            "maxLength": 30
+          },
+          "state": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9 ]+$",
+            "example": "NY",
+            "minLength": 2,
+            "maxLength": 15
+          },
+          "country": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9 ]+$",
+            "example": "US",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "zipCode": {
+            "type": "string",
+            "example": "90210",
+            "minLength": 5,
+            "maxLength": 9,
+            "pattern": "^[A-Za-z0-9 ]{5,9}$"
+          }
+        }
+      },
+      "InboundTransactionParty": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Dolly Parton",
+            "maxLength": 35
+          },
+          "address": {
+            "type": "string",
+            "example": "321 Cool Street",
+            "maxLength": 35
+          },
+          "city": {
+            "type": "string",
+            "example": "Albany",
+            "maxLength": 30
+          },
+          "state": {
+            "type": "string",
+            "example": "NY",
+            "minLength": 2,
+            "maxLength": 15
+          },
+          "country": {
+            "type": "string",
+            "example": "US",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "zipCode": {
+            "type": "string",
+            "example": "90210",
+            "minLength": 5,
+            "maxLength": 9,
+            "pattern": "^[A-Za-z0-9 ]{5,9}$"
+          }
+        }
+      },
+      "ReceivingParty": {
+        "type": "object",
+        "required": [
+          "address",
+          "city",
+          "state",
+          "country",
+          "zipCode"
+        ],
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "William",
+            "pattern": "^[A-Za-z0-9 ]+$",
+            "maxLength": 35
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Dafoe",
+            "pattern": "^[A-Za-z0-9 ]+$",
+            "maxLength": 35
+          },
+          "receiverIdentificationNumber": {
+            "type": "string",
+            "example": "T444231987",
+            "pattern": "^[A-Za-z0-9]+$",
+            "maxLength": 15
+          },
+          "companyName": {
+            "type": "string",
+            "example": "XYZ Financial Inc.",
+            "pattern": "^[A-Za-z0-9 ]+$",
+            "maxLength": 35
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "example": "1987-10-10"
+          },
+          "address": {
+            "type": "string",
+            "example": "321 River Street",
+            "pattern": "^[A-Za-z0-9 ]+$",
+            "maxLength": 35
+          },
+          "city": {
+            "type": "string",
+            "example": "Albany",
+            "pattern": "^[A-Za-z0-9 ]+$",
+            "maxLength": 30
+          },
+          "state": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9 ]+$",
+            "example": "NY",
+            "minLength": 2,
+            "maxLength": 15
+          },
+          "country": {
+            "type": "string",
+            "example": "US",
+            "format": "ISO 3266 Alpha-2"
+          },
+          "zipCode": {
+            "type": "string",
+            "example": "90210",
+            "pattern": "^[A-Za-z0-9 ]{5,9}$",
+            "minLength": 5,
+            "maxLength": 9
+          }
+        }
+      },
+      "InboundReceivingParty": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "William Dafoe",
+            "pattern": "^[A-Za-z0-9]+$",
+            "maxLength": 35
+          },
+          "address": {
+            "type": "string",
+            "example": "321 River Street",
+            "pattern": "^[A-Za-z0-9]+$",
+            "maxLength": 35
+          },
+          "city": {
+            "type": "string",
+            "example": "Albany",
+            "pattern": "^[A-Za-z0-9]+$",
+            "maxLength": 30
+          },
+          "state": {
+            "type": "string",
+            "example": "NY",
+            "minLength": 2,
+            "maxLength": 15
+          },
+          "country": {
+            "type": "string",
+            "example": "US",
+            "format": "ISO 3266 Alpha-2"
+          },
+          "zipCode": {
+            "type": "string",
+            "example": "90210",
+            "pattern": "^[A-Za-z0-9 ]{5,9}$",
+            "minLength": 5,
+            "maxLength": 9
+          },
+          "receiverIdentificationNumber": {
+            "type": "string",
+            "example": "T444231987",
+            "pattern": "^[A-Za-z0-9]+$",
+            "maxLength": 15
+          }
+        }
+      },
+      "PageHeader": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "example": 1
+          },
+          "offset": {
+            "type": "integer",
+            "example": 0
+          },
+          "totalCount": {
+            "type": "integer",
+            "example": 100
+          }
+        }
+      },
+      "FileResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "F00000001"
+          },
+          "fileType": {
+            "type": "string",
+            "enum": [
+              "NACHA_DOMESTIC",
+              "NACHA_IAT",
+              "SUPPLEMENTAL"
+            ],
+            "example": "NACHA_DOMESTIC"
+          },
+          "transactionFlow": {
+            "type": "string",
+            "enum": [
+              "DEBIT",
+              "CREDIT"
+            ],
+            "example": "DEBIT"
+          },
+          "sameDayACH": {
+            "type": "boolean",
+            "example": false
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "GENERATED",
+              "SUBMITTED"
+            ],
+            "example": "GENERATED"
+          },
+          "generationDateTimeStart": {
+            "type": "string",
+            "format": "ISO Datetime",
+            "example": "2021-06-12T00:00:00Z"
+          },
+          "generationDateTimeEnd": {
+            "type": "string",
+            "format": "ISO Datetime",
+            "example": "2021-06-12T00:05:00Z"
+          }
+        }
+      },
+      "rdfiTransactionWebhookPostRequest": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "integer",
+            "example": 10099
+          },
+          "originalEffectiveEntryDate": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "example": "2023-01-24"
+          },
+          "receiver": {
+            "type": "string",
+            "example": "John Doe",
+            "maxLength": 35
+          },
+          "rdfiAccountNumber": {
+            "type": "string",
+            "example": "999000123",
+            "maxLength": 17
+          },
+          "achTraceNumber": {
+            "type": "string",
+            "example": "999000123123456",
+            "maxLength": 15
+          },
+          "standardEntryClass": {
+            "type": "string",
+            "example": "PPD",
+            "maxLength": 15
+          },
+          "rdfiRoutingNumber": {
+            "type": "string",
+            "example": "999000125",
+            "maxLength": 9
+          },
+          "odfiRoutingNumber": {
+            "type": "string",
+            "example": "999000134",
+            "maxLength": 9
+          },
+          "odfiCompanyName": {
+            "type": "string",
+            "example": "TEST",
+            "maxLength": 100
+          },
+          "transactionCode": {
+            "type": "string",
+            "enum": [
+              "22",
+              "23",
+              "24",
+              "27",
+              "28",
+              "29",
+              "32",
+              "33",
+              "34",
+              "37",
+              "38",
+              "39",
+              "42",
+              "43",
+              "44"
+            ],
+            "example": "22"
+          },
+          "transactionType": {
+            "type": "string",
+            "enum": [
+              "CREDIT",
+              "DEBIT"
+            ],
+            "example": "DEBIT"
+          },
+          "transactionId": {
+            "type": "string",
+            "format": "uuidv4",
+            "example": "6a5823dc-c72f-4095-bb78-7b61318b8d3a"
+          }
+        }
+      },
+      "rejectWebhookPostRequest": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "maxLength": 100,
+            "example": "98 OFAC"
+          },
+          "amount": {
+            "type": "integer",
+            "example": 10099
+          },
+          "originalEffectiveEntryDate": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "example": "2023-01-24"
+          },
+          "receiver": {
+            "type": "string",
+            "example": "John Doe",
+            "maxLength": 35
+          },
+          "rdfiAccountNumber": {
+            "type": "string",
+            "example": "999000123",
+            "maxLength": 17
+          },
+          "achTraceNumber": {
+            "type": "string",
+            "example": "999000123123456",
+            "maxLength": 15
+          },
+          "standardEntryClass": {
+            "type": "string",
+            "example": "PPD",
+            "maxLength": 15
+          },
+          "rdfiRoutingNumber": {
+            "type": "string",
+            "example": "999000125",
+            "maxLength": 9
+          },
+          "odfiRoutingNumber": {
+            "type": "string",
+            "example": "999000134",
+            "maxLength": 9
+          },
+          "odfiCompanyName": {
+            "type": "string",
+            "example": "TEST",
+            "maxLength": 100
+          },
+          "transactionId": {
+            "type": "string",
+            "format": "uuidv4",
+            "example": "5fa88249-0102-45c0-ae5a-4851f1a06d75"
+          }
+        }
+      },
+      "returnWebhookPostRequest": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "maxLength": 100,
+            "example": "R13"
+          },
+          "amount": {
+            "type": "integer",
+            "example": 10099
+          },
+          "originalEffectiveEntryDate": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "example": "2023-01-24"
+          },
+          "receiver": {
+            "type": "string",
+            "example": "John Doe",
+            "maxLength": 35
+          },
+          "rdfiAccountNumber": {
+            "type": "string",
+            "example": "999000123",
+            "maxLength": 17
+          },
+          "achTraceNumber": {
+            "type": "string",
+            "example": "999000123123456",
+            "maxLength": 15
+          },
+          "standardEntryClass": {
+            "type": "string",
+            "example": "PPD",
+            "maxLength": 15
+          },
+          "rdfiRoutingNumber": {
+            "type": "string",
+            "example": "999000125",
+            "maxLength": 9
+          },
+          "odfiRoutingNumber": {
+            "type": "string",
+            "example": "999000134",
+            "maxLength": 9
+          },
+          "odfiCompanyName": {
+            "type": "string",
+            "example": "TEST",
+            "maxLength": 100
+          },
+          "transactionId": {
+            "type": "string",
+            "format": "uuidv4",
+            "example": "5fa88249-0102-45c0-ae5a-4851f1a06d75"
+          }
+        }
+      },
+      "cirTransactionWebhookPostRequest": {
+        "type": "object",
+        "properties": {
+          "transactionId": {
+            "type": "string",
+            "format": "uuidv4",
+            "example": "6a5823dc-c72f-4095-bb78-7t71318b8d3a"
+          },
+          "returnCode": {
+            "$ref": "#/components/schemas/returnReasonCode"
+          },
+          "effectiveEntryDate": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "example": "2023-01-24"
+          },
+          "companyId": {
+            "type": "string",
+            "format": "uuidv4",
+            "example": "6a7823dc-c72f-4095-bb78-7b61318b8d3a"
+          },
+          "returnAchTraceNumber": {
+            "type": "string",
+            "example": "999000123123456",
+            "maxLength": 15
+          },
+          "originalAchTraceNumber": {
+            "type": "string",
+            "example": "999000123123457",
+            "maxLength": 15
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "RETURNED_BY_CLIENT"
+            ]
+          },
+          "referenceId": {
+            "type": "string",
+            "example": "RTN_OA00000008_20250327100000.ach"
+          }
+        }
+      },
+      "odfiTransactionWebhookPostRequest": {
+        "type": "object",
+        "properties": {
+          "companyId": {
+            "type": "string",
+            "format": "uuidv4",
+            "example": "6a7823dc-c72f-4095-bb78-7b61318b8d3a"
+          },
+          "serviceAccountId": {
+            "type": "string",
+            "format": "uuidv4",
+            "example": "6a7823dc-c72f-4095-bb78-7b61318b8d3b"
+          },
+          "transactionGroupId": {
+            "type": "string",
+            "format": "uuidv4",
+            "example": "6a7823dc-c72f-4095-bb78-7b61318b8d3c"
+          },
+          "transactionType": {
+            "type": "string",
+            "enum": [
+              "CREDIT",
+              "DEBIT"
+            ],
+            "example": "CREDIT"
+          },
+          "isInternational": {
+            "type": "boolean",
+            "example": false
+          },
+          "isSameDayACH": {
+            "type": "boolean",
+            "example": true
+          },
+          "offsetReference": {
+            "type": "string",
+            "example": "2312210001"
+          },
+          "numberTransactions": {
+            "type": "integer",
+            "example": 100
+          },
+          "fileName": {
+            "type": "string",
+            "example": "ACHPS_0123456789_20210712154532_0000001.ach"
+          }
+        }
+      },
+      "nocTransactionWebhookPostRequest": {
+        "type": "object",
+        "properties": {
+          "transactionId": {
+            "type": "string",
+            "format": "uuidv4",
+            "example": "6a5823dc-c72f-4095-bb78-7t71318b8d3a"
+          },
+          "traceNumber": {
+            "type": "string",
+            "example": "999000123123457",
+            "maxLength": 15
+          },
+          "changeCode": {
+            "$ref": "#/components/schemas/changeReasonCode"
+          },
+          "correctedData": {
+            "type": "string"
+          }
+        }
+      },
+      "returnRDFITransactionPatchRequest": {
+        "type": "object",
+        "required": [
+          "returnReasonCode"
+        ],
+        "properties": {
+          "returnReasonCode": {
+            "$ref": "#/components/schemas/returnReasonCode"
+          },
+          "dateOfDeath": {
+            "type": "string",
+            "example": "1990-01-31",
+            "format": "YYYY-MM-DD"
+          },
+          "returnInformation": {
+            "type": "string",
+            "example": "Insufficient funds",
+            "minLength": 0,
+            "maxLength": 44
+          }
+        }
+      },
+      "rdfiTransactionReturnResponse": {
+        "type": "object",
+        "properties": {
+          "transactionId": {
+            "type": "string",
+            "format": "uuidv4",
+            "example": "6a5823dc-c72f-4095-bb78-7b61318b8d3a"
+          },
+          "companyId": {
+            "type": "string"
+          },
+          "standardEntryClass": {
+            "type": "string"
+          },
+          "dueDate": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "integer",
+            "example": 10099
+          },
+          "achTraceNumber": {
+            "type": "string"
+          },
+          "routingNumber": {
+            "type": "string"
+          },
+          "accountNumber": {
+            "type": "string",
+            "example": "999000123",
+            "maxLength": 9
+          },
+          "bankName": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACCEPTED",
+              "RETURN_INITIATED_BY_CLIENT",
+              "RETURNED_BY_CLIENT"
+            ],
+            "example": "RETURN_INITIATED_BY_CLIENT"
+          },
+          "events": {
+            "type": "array",
+            "example": [
+              {
+                "eventType": "ACCEPTED",
+                "eventDateTime": "2021-04-21T00:00:00Z"
+              },
+              {
+                "eventType": "RETURN_INITIATED_BY_CLIENT",
+                "eventDateTime": "2021-04-30T00:00:00Z",
+                "returnReasonCode": "R01",
+                "returnInformation": "Insufficient Funds"
+              }
+            ],
+            "items": {
+              "type": "object",
+              "required": [
+                "eventType",
+                "eventDateTime"
+              ],
+              "properties": {
+                "eventType": {
+                  "type": "string",
+                  "enum": [
+                    "ACCEPTED",
+                    "RETURN_INITIATED_BY_CLIENT",
+                    "RETURNED_BY_CLIENT"
+                  ],
+                  "example": "RETURN_INITIATED_BY_CLIENT"
+                },
+                "eventDateTime": {
+                  "type": "string",
+                  "format": "ISO 8601",
+                  "example": "2021-04-21T00:00:00Z"
+                },
+                "returnReasonCode": {
+                  "$ref": "#/components/schemas/returnReasonCode"
+                },
+                "dateOfDeath": {
+                  "type": "string",
+                  "example": "1990-01-31",
+                  "format": "YYYY-MM-DD"
+                },
+                "returnInformation": {
+                  "type": "string",
+                  "example": "Insufficient funds",
+                  "minLength": 0,
+                  "maxLength": 44
+                }
+              }
+            }
+          }
+        }
+      },
+      "returnReasonCode": {
+        "type": "string",
+        "enum": [
+          "R01",
+          "R02",
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R09",
+          "R10",
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R15",
+          "R16",
+          "R17",
+          "R18",
+          "R19",
+          "R20",
+          "R21",
+          "R22",
+          "R23",
+          "R24",
+          "R25",
+          "R26",
+          "R27",
+          "R28",
+          "R29",
+          "R30",
+          "R31",
+          "R32",
+          "R33",
+          "R34",
+          "R35",
+          "R36",
+          "R37",
+          "R38",
+          "R39",
+          "R40",
+          "R41",
+          "R42",
+          "R43",
+          "R44",
+          "R45",
+          "R46",
+          "R47",
+          "R48",
+          "R49",
+          "R50",
+          "R51",
+          "R52",
+          "R53",
+          "R61",
+          "R62",
+          "R63",
+          "R64",
+          "R65",
+          "R66",
+          "R67",
+          "R68",
+          "R69",
+          "R70",
+          "R71",
+          "R72",
+          "R73",
+          "R74",
+          "R75",
+          "R76",
+          "R77",
+          "R80",
+          "R81",
+          "R82",
+          "R83",
+          "R84",
+          "R85"
+        ],
+        "example": "R01"
+      },
+      "changeReasonCode": {
+        "type": "string",
+        "enum": [
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C13",
+          "C14"
+        ],
+        "example": "C01"
+      },
+      "400ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "datetime",
+            "example": "2022-05-11T17:19:50.124+00:00"
+          },
+          "status": {
+            "type": "integer",
+            "example": 400
+          },
+          "error": {
+            "type": "string",
+            "example": "Bad Request"
+          },
+          "message": {
+            "type": "string",
+            "example": "Request contains errors"
+          }
+        }
+      },
+      "401ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "User is not authorized to access this resource with an explicit deny"
+          }
+        }
+      },
+      "403ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "User is not authorized to access this resource with an explicit deny"
+          }
+        }
+      },
+      "404ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "datetime",
+            "example": "2022-05-11T17:19:50.124+00:00"
+          },
+          "status": {
+            "type": "integer",
+            "example": 404
+          },
+          "error": {
+            "type": "string",
+            "example": "Not found"
+          },
+          "message": {
+            "type": "string",
+            "example": "Resource with Id not"
+          },
+          "path": {
+            "type": "string",
+            "example": "/v1/transactions"
+          }
+        }
+      }
+    }
+  }
+}
