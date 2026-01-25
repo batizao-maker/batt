@@ -2,6 +2,10 @@
 
 Este projeto audita centenas de documentos (Markdown e texto) para estimar a maturidade cognitiva com base em sinais como justificativas, evidências, alternativas e reflexões.
 
+## Modelos finais de comercialização
+
+O arquivo `modelos_comercializacao.md` reúne modelos prontos para uso com checklists e campos preenchíveis para diferentes estratégias comerciais.
+
 ## Como usar
 
 ```bash
