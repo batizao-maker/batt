@@ -2,12 +2,20 @@
 
 Este documento reúne modelos finais de comercialização prontos para uso, com campos preenchíveis e diretrizes objetivas.
 
+## Como usar estes modelos
+
+1. Selecione o modelo que melhor representa o seu negócio.
+2. Preencha os campos em branco com dados reais.
+3. Valide a oferta com o checklist ao final.
+
+---
+
 ## 1) Modelo de comercialização B2B SaaS (assinatura)
 
 **Proposta de valor**
 - [ ] Dor principal do cliente: 
 - [ ] Resultado prometido (em até X dias): 
-- [ ] Diferenciais claros: 
+- [ ] Diferenciais claros e mensuráveis: 
 
 **ICP (Perfil de cliente ideal)**
 - Segmento: 
@@ -16,9 +24,9 @@ Este documento reúne modelos finais de comercialização prontos para uso, com 
 - Stack atual / dores: 
 
 **Oferta e pacotes**
-- Plano Básico: 
-- Plano Pro: 
-- Plano Enterprise: 
+- Plano Essencial (uso base): 
+- Plano Growth (times em expansão): 
+- Plano Enterprise (compliance/segurança): 
 - Upsell/Cross-sell: 
 
 **Preço e ancoragem**
@@ -29,7 +37,7 @@ Este documento reúne modelos finais de comercialização prontos para uso, com 
 **Canais de aquisição**
 - Inbound (conteúdo, SEO, webinars): 
 - Outbound (SDR, cold email, LinkedIn): 
-- Parcerias: 
+- Parcerias e marketplaces: 
 
 **Processo comercial**
 1. Lead qualificado (MQL/SQL)
@@ -152,4 +160,3 @@ Este documento reúne modelos finais de comercialização prontos para uso, com 
 - [ ] Pipeline definido
 - [ ] Templates de comunicação
 - [ ] Rotina de follow-up
-
